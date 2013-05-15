@@ -1,0 +1,22 @@
+{
+	"name": "bbcopterWebServer",
+	"version": "0.0.1",
+	"description": "This provide a web server and do a quad engine",
+	"main": "server.js",
+	"dependencies": {
+		"express": "~3.2.0",
+		"socket.io": "~0.9.14"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/jstapels/bbcopter.git"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": "",
+	"author": "",
+	"license": "BSD"
+}
