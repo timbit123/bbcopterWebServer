@@ -13,21 +13,29 @@ function WebServer() {
 	this._app.get('/', function(req, res) {
 		res.sendfile('index.html');
 	});
+	var self = this;
 	this._io.sockets.on('connection', function(socket) {
-	socket.emit('statusUpdate', {
-		status : 'world'
+		socket.emit('statusUpdate', {
+			status : self.values.status
+		});
+		socket.emit('coordinateUpdate', {
+			coordinates : self.values.coordinates
+		});
 	});
-});
 }
 
-WebServer.prototype.sendStatus = function(status)
-{
-	this._io.sockets.emit('statusUpdate', { status: status});
+WebServer.prototype.sendStatus = function(status) {
+	this.values.status = status;
+	this._io.sockets.emit('statusUpdate', {
+		status : status
+	});
 }
 
-WebServer.prototype.sendCoordinates = function(coor)
-{
-	this._io.sockets.emit('coordinateUpdate', { coordinates: coor});
+WebServer.prototype.sendCoordinates = function(coor) {
+	this.values.coordinates = coor;
+	this._io.sockets.emit('coordinateUpdate', {
+		coordinates : coor
+	});
 }
 
 module.exports = WebServer;
