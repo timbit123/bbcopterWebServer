@@ -9,7 +9,7 @@
 	<body>
 		<div id="2dModel" style="text-align: left; width: 450px; position: fixed;"></div>
 		<div id="3dModel"></div>
-		
+
 		<script src="three.min.js"></script>
 		<script src="ColladaLoader.js"></script>
 		<script src="3dview.js"></script>
@@ -21,6 +21,12 @@
 				socket.emit('my other event', {
 					my : 'data'
 				});
+			});
+			socket.on('statusUpdate', function(data) {
+				console.log(data.status);
+			});
+			socket.on('coordinateUpdate', function(data) {
+				console.log(data.coordinates);
 			});
 		</script>
 
