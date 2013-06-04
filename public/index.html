@@ -5,9 +5,12 @@
 
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="app.js"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script src="graph.js"></script>
 	</head>
 	<body>
 		<div id="2dModel" style="text-align: left; width: 450px; position: fixed;"></div>
+		<div id="graph" style="text-align: left; width: 500px; margin-top: 300px; position: fixed;"></div>
 		<div id="3dModel"></div>
 
 		<script src="three.min.js"></script>
@@ -15,6 +18,7 @@
 		<script src="3dview.js"></script>
 		<script src="2dview.js"></script>
 		<script>
+		var self = this;
 			var socket = io.connect('http://localhost');
 			socket.on('news', function(data) {
 				console.log(data);
@@ -26,6 +30,11 @@
 				console.log(data.status);
 			});
 			socket.on('coordinateUpdate', function(data) {
+				if(isGraphReady)
+				{
+					self.data.addRow([new Date(), data.coordinates.x,data.coordinates.y, data.coordinates.z,10,10,10]);
+					drawChart();
+				}
 				console.log(data.coordinates);
 			});
 		</script>

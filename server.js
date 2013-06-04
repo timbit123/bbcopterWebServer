@@ -13,6 +13,7 @@ function WebServer() {
 	this._app.get('/', function(req, res) {
 		res.sendfile('index.html');
 	});
+	this.values = {};
 	var self = this;
 	this._io.sockets.on('connection', function(socket) {
 		socket.emit('statusUpdate', {
