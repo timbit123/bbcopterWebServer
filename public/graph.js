@@ -19,7 +19,8 @@ function init() {
 		animation : {
 			duration : 100,
 			easing : 'out',
-		}
+		},
+		'chartArea':{width:"60%"}
 	};
 	chart = new google.visualization.LineChart(document.getElementById('graph'));
 
