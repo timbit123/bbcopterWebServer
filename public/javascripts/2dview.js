@@ -56,7 +56,7 @@ function animate2d() {
 		}
 		aiMesh.translateY(-positionY);
 		aiMesh.rotation.z = roll2dcurrent;
-		console.log(roll2dcurrent);
+		//console.log(roll2dcurrent);
 		//positionY -= delta * 1.5;
 		aiMesh.translateY(positionY);
 	}

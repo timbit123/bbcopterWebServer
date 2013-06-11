@@ -1,5 +1,5 @@
 var self = this;
-var socket = io.connect('http://localhost');
+var socket = io.connect('http://timbit-server.com:8888');
 socket.on('news', function(data) {
 	console.log(data);
 	socket.emit('my other event', {
@@ -7,7 +7,7 @@ socket.on('news', function(data) {
 	});
 });
 socket.on('statusUpdate', function(data) {
-	console.log(data.status);
+	//console.log(data.status);
 });
 socket.on('coordinateUpdate', function(data) {
 	if (isGraphReady) {
@@ -18,6 +18,7 @@ socket.on('coordinateUpdate', function(data) {
 });
 socket.on('cpuUsage', function(data)
 {
-	$('#cpuPourcentage').val(data.cpu);
-	$('#memoryUsage').val((data.memory / 8) / 8);
+	console.log(data);
+	$('#cpuPourcentage').html(data.cpu.toFixed(2));
+	$('#memoryUsage').html(((data.memory / 1024) / 1024).toFixed(2));
 });
