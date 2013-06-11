@@ -20,7 +20,8 @@ function init() {
 			duration : 100,
 			easing : 'out',
 		},
-		'chartArea':{width:"60%"}
+		'chartArea':{width:"60%"},
+		backgroundColor: { fill:'transparent' }
 	};
 	chart = new google.visualization.LineChart(document.getElementById('graph'));
 

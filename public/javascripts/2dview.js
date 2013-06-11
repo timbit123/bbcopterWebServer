@@ -10,7 +10,7 @@ function init2d() {
 
 	var bgplaneGeo = new THREE.PlaneGeometry(450, 450);
 	var bgplaneMat = new THREE.MeshLambertMaterial({
-		map : THREE.ImageUtils.loadTexture('bgAI.png'),
+		map : THREE.ImageUtils.loadTexture('/images/bgAI.png'),
 		overdraw : true
 	});
 	bgMesh = new THREE.Mesh(bgplaneGeo, bgplaneMat);
@@ -20,7 +20,7 @@ function init2d() {
 
 	var aiplaneGeo = new THREE.PlaneGeometry(500, 1200);
 	var aiplaneMat = new THREE.MeshLambertMaterial({
-		map : THREE.ImageUtils.loadTexture('movingAI.png'),
+		map : THREE.ImageUtils.loadTexture('/images/movingAI.png'),
 		overdraw : true
 	});
 	aiMesh = new THREE.Mesh(aiplaneGeo, aiplaneMat);

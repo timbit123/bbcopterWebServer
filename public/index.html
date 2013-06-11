@@ -2,42 +2,34 @@
 <html>
 	<head>
 		<title>QuadCopter v0.1</title>
-
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="app.js"></script>
+		<link rel="stylesheet" href="/stylesheets/application.css">
+		
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<script src="graph.js"></script>
+		<script type="text/javascript" src="/javascripts/graph.js"></script>
+		<script type="text/javascript" src="/javascripts/three.min.js"></script>
+		<script type="text/javascript" src="/javascripts/ColladaLoader.js"></script>
+		
 	</head>
 	<body>
-		<div id="2dModel" style="text-align: left; width: 450px; position: fixed;"></div>
-		<div id="graph" style="text-align: left; width: 500px; margin-top: 300px; position: fixed;"></div>
-		<div id="3dModel"></div>
 
-		<script src="three.min.js"></script>
-		<script src="ColladaLoader.js"></script>
-		<script src="3dview.js"></script>
-		<script src="2dview.js"></script>
-		<script>
-		var self = this;
-			var socket = io.connect('http://localhost');
-			socket.on('news', function(data) {
-				console.log(data);
-				socket.emit('my other event', {
-					my : 'data'
-				});
-			});
-			socket.on('statusUpdate', function(data) {
-				console.log(data.status);
-			});
-			socket.on('coordinateUpdate', function(data) {
-				if(isGraphReady)
-				{
-					self.data.addRow([new Date(), data.coordinates.x,data.coordinates.y, data.coordinates.z,10,10,10]);
-					drawChart();
-				}
-				console.log(data.coordinates);
-			});
-		</script>
+		<div id="banner" class="banner">
+			<label>CPU Usage <span id="cpuPourcentage"></span>%</label>
+			<span>      </span>
+			<label>Memory Usage <span id="memoryUsage"></span>Mb</label>
+		</div>
+		<div id="2dModel" class="2dModel">
 
+		</div>
+		<div id="graph" class="graph">
+
+		</div>
+		<div id="3dModel" class="3dModel">
+
+		</div>
+
+		<script type="text/javascript" src="/javascripts/3dview.js"></script>
+		<script type="text/javascript" src="/javascripts/2dview.js"></script>
+		<script type="text/javascript" src="/javascripts/application.js"></script>
 	</body>
 </html>

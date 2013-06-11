@@ -1,5 +1,6 @@
 //init web server
 var express = require('express');
+var usage = require('usage');
 
 function WebServer() {
 	this._app = express();
@@ -22,6 +23,18 @@ function WebServer() {
 		socket.emit('coordinateUpdate', {
 			coordinates : self.values.coordinates
 		});
+	});
+
+	
+
+	var pid = process.pid;// you can use any valid PID instead
+	console.log(pid);
+	usage.lookup(pid, function(err, result) {
+		console.log(result);
+		console.log(err);
+		if (!err) {
+			self._io.sockets.emit('cpuUsage', result);
+		}
 	});
 }
 
