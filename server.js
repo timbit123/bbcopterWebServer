@@ -25,17 +25,18 @@ function WebServer() {
 		});
 	});
 
-	
-
-	var pid = process.pid;// you can use any valid PID instead
+	var pid = process.pid;
+	// you can use any valid PID instead
 	console.log(pid);
-	usage.lookup(pid, function(err, result) {
-		console.log(result);
-		console.log(err);
-		if (!err) {
-			self._io.sockets.emit('cpuUsage', result);
-		}
-	});
+	setInterval(function() {
+		usage.lookup(pid, function(err, result) {
+			console.log(result);
+			console.log(err);
+			if (!err) {
+				self._io.sockets.emit('cpuUsage', result);
+			}
+		});
+	}, 1000);
 }
 
 WebServer.prototype.sendStatus = function(status) {
