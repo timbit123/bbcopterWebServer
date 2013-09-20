@@ -2,12 +2,12 @@
 var express = require('express');
 var usage = require('usage');
 
-function WebServer() {
+function WebServer(port) {
 	this._app = express();
 	this._server = require('http').createServer(this._app);
 	this._io = require('socket.io').listen(this._server);
 	if ( typeof config == "undefined")
-		this._server.listen(8888);
+		this._server.listen(port);
 	else
 		this._server.listen(config.webPort);
 	this._app.use(express.static(__dirname + '/public'));

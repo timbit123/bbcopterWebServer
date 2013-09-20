@@ -11,7 +11,7 @@ socket.on('statusUpdate', function(data) {
 });
 socket.on('coordinateUpdate', function(data) {
 	if (isGraphReady) {
-		self.data.addRow([new Date(), data.coordinates.x, data.coordinates.y, data.coordinates.z, 10, 10, 10]);
+		self.data.addRow([new Date(), data.accel.x, data.accel.y, data.accel.z, data.gyro.x, data.gyro.y, data.gyro.z]);
 		drawChart();
 	}
 	console.log(data.coordinates);
