@@ -1,11 +1,18 @@
 //init web server
 var express = require('express');
-var usage = require('usage');
-
+var Datagram = require('./clientDataGram.js'); //we send values to the beagleboard (quadcopter) over UDP
+var Joystick = require('./joystick.js');
+var joystick;
+var datagram;
 function WebServer(port) {
+	var self = this;
+	joystick = new Joystick();
+	datagram = new Datagram(4145, '192.168.1.165');
+	
 	this._app = express();
 	this._server = require('http').createServer(this._app);
 	this._io = require('socket.io').listen(this._server);
+	
 	if ( typeof config == "undefined")
 		this._server.listen(port);
 	else
@@ -15,7 +22,7 @@ function WebServer(port) {
 		res.sendfile('index.html');
 	});
 	this.values = {};
-	var self = this;
+	
 	this._io.sockets.on('connection', function(socket) {
 		socket.emit('statusUpdate', {
 			status : self.values.status
@@ -23,19 +30,24 @@ function WebServer(port) {
 		socket.emit('coordinateUpdate', {
 			coordinates : self.values.coordinates
 		});
-	});
-
-	var pid = process.pid;
-	// you can use any valid PID instead
-	setInterval(function() {
-		usage.lookup(pid, function(err, result) {
-			console.log(result);
-			console.log(err);
-			if (!err) {
-				self._io.sockets.emit('cpuUsage', result);
-			}
+		
+		socket.on('joystick', function(data)
+		{
+			console.log(data);
+			joystick.updateJoystick(data);
 		});
-	}, 1000);
+	});
+	joystick.on('data', function(data2)
+	{
+		datagram.sendValues(data2);
+		//datagram.sendValues("test");
+	});
+	
+	datagram.on('data', function(data)
+	{
+		console.log(data);
+	});
+	datagram.sendValues("test");
 }
 
 WebServer.prototype.sendStatus = function(status) {
@@ -43,13 +55,11 @@ WebServer.prototype.sendStatus = function(status) {
 	this._io.sockets.emit('statusUpdate', {
 		status : status
 	});
-}
+};
 
 WebServer.prototype.sendCoordinates = function(coor) {
 	this.values.coordinates = coor;
-	this._io.sockets.emit('coordinateUpdate', {
-		coordinates : coor
-	});
-}
+	this._io.sockets.emit('coordinateUpdate', coor);
+};
 
 module.exports = WebServer;

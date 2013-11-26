@@ -5,8 +5,7 @@
 	"main": "server.js",
 	"dependencies": {
 		"express": "~3.2.0",
-		"socket.io": "~0.9.14",
-		"usage" : "*"
+		"socket.io": "~0.9.14"
 	},
 	"repository": {
 		"type": "git",
